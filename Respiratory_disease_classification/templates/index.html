@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <title>Respiratory Disease</title>
+  <link rel="stylesheet" href="static/images/lung.png">
+  <link rel="icon" type="image/x-icon" href="static/images/lung.png">
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Bootstrap App Landing Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Themefisher Small Apps Template v1.0">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+  
+  <!-- PLUGINS CSS STYLE -->
+  <link rel="stylesheet" href="static/plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="static/plugins/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="static/plugins/slick/slick.css">
+  <link rel="stylesheet" href="static/plugins/slick/slick-theme.css">
+  <link rel="stylesheet" href="static/plugins/fancybox/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="static/plugins/aos/aos.css">
+
+  <!-- CUSTOM CSS -->
+  <link href="static/css/style.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  
+</head>
+
+<body class="body-wrapper" data-spy="scroll" data-target=".privacy-nav">
+
+
+
+
+<!--====================================
+=            Hero Section            =
+=====================================-->
+<section class="section gradient-banner">
+	
+	<div class="shapes-container">
+		<div class="shape" data-aos="fade-down-left" data-aos-duration="1500" data-aos-delay="100"></div>
+		<div class="shape" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="100"></div>
+		<div class="shape" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="200"></div>
+		<div class="shape" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"></div>
+		<div class="shape" data-aos="fade-down-left" data-aos-duration="1000" data-aos-delay="100"></div>
+		<div class="shape" data-aos="fade-down-left" data-aos-duration="1000" data-aos-delay="100"></div>
+		<div class="shape" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="300"></div>
+		<div class="shape" data-aos="fade-down-right" data-aos-duration="500" data-aos-delay="200"></div>
+		<div class="shape" data-aos="fade-down-right" data-aos-duration="500" data-aos-delay="100"></div>
+		<div class="shape" data-aos="zoom-out" data-aos-duration="2000" data-aos-delay="500"></div>
+		<div class="shape" data-aos="fade-up-right" data-aos-duration="500" data-aos-delay="200"></div>
+		<div class="shape" data-aos="fade-down-left" data-aos-duration="500" data-aos-delay="100"></div>
+		<div class="shape" data-aos="fade-up" data-aos-duration="500" data-aos-delay="0"></div>
+		<div class="shape" data-aos="fade-down" data-aos-duration="500" data-aos-delay="0"></div>
+		<div class="shape" data-aos="fade-up-right" data-aos-duration="500" data-aos-delay="100"></div>
+		<div class="shape" data-aos="fade-down-left" data-aos-duration="500" data-aos-delay="0"></div>
+	</div>
+	<div class="container">
+        
+        <div class="row align-items-center">
+            <div class="col-12">
+                <h1 class="text-white font-weight-bold text-center mb-4">Welcome to <br> Respiratory Disease Diagnosis</h1>
+            </div>
+            <div class="col-md-6 order-2 order-md-1 text-center text-md-left">
+                
+                <div class="card p-5" style="border-radius: 30px; background: #ffffff;">
+                    <h4 class="text-center"><b>Upload Audio File</b></h4>
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" accept=".wav" class="form-control mt-3">
+                        <div class="text-center"><input type="submit" value="Upload and Predict" class="btn btn-success mt-4 p-3 px-5" style="border-radius: 30px;"></div>
+                    </form>
+                    {% if prediction %}
+                        <div class=" text-center p-4 mt-4" style="border: 2px solid #bfbfbf; border-radius: 20px;">
+							<div class="d-flex justify-content-end">
+								<button onclick="playDescription()" class="btn btn-outline-primary"><i class="fa-solid fa-volume-high"></i></button>
+							</div>
+                            <p><b>Predicted Disease:</b></p>
+                            <h2 id="prediction"> {{ prediction }} </h2>
+                            <p id="description">A chronic lung disease characterized by airflow obstruction, making it difficult to breathe. It typically worsens over time and is often caused by smoking.</p>
+                        </div>
+                    {% endif %}
+                </div>
+                
+            </div>
+            <div class="col-md-6 text-center order-1 order-md-2 align-items-center">
+                <img class="img-fluid .scale-animation" src="static/images/lung.png" alt="screenshot">
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!--====  End of Hero Section  ====-->
+
+<script>
+    // Function to update description based on prediction
+    function updateDescription() {
+      var prediction = document.getElementById('prediction').innerText.trim();
+      var description = document.getElementById('description');
+  
+      // Switch case to set description based on prediction
+      switch(prediction) {
+        case 'COPD':
+          description.innerText = "A chronic lung disease characterized by airflow obstruction, making it difficult to breathe. It typically worsens over time and is often caused by smoking.";
+          break;
+        case 'Bronchiolitis':
+          description.innerText = "An inflammatory respiratory condition that primarily affects the small airways (bronchioles), commonly seen in infants and young children. It's usually caused by viral infections, particularly respiratory syncytial virus (RSV).";
+          break;
+        case 'Pneumonia':
+          description.innerText = "An infection that inflames the air sacs in one or both lungs, leading to symptoms like cough, fever, and difficulty breathing. It can be caused by bacteria, viruses, or fungi.";
+          break;
+        case 'URTI':
+          description.innerText = "An infection involving the nose, sinuses, throat, and sometimes the larynx (voice box) or trachea (windpipe). It's commonly caused by viruses and presents symptoms like nasal congestion, sore throat, cough, and sneezing.";
+          break;
+        case 'Healthy':
+          description.innerText = "A state of well-being characterized by the absence of significant illness or disease, including respiratory conditions. It typically involves good lung function, normal breathing patterns, and absence of respiratory symptoms. Regular exercise, balanced diet, and avoidance of smoking contribute to maintaining respiratory health.";
+          break;
+        default:
+          description.innerText = ""; // Clear description if prediction is not recognized
+      }
+    }
+  
+    // Call the function initially
+    updateDescription();
+
+    // Function to play description text as audio
+    function playDescription() {
+      var descriptionText = document.getElementById('description').innerText.trim();
+      var synth = window.speechSynthesis;
+      var utterance = new SpeechSynthesisUtterance(descriptionText);
+      synth.speak(utterance);
+    }
+</script>
+  
+
+
+
+
+<!--============================
+=            Footer            =
+=============================-->
+<footer>
+  
+
+<div class="text-center bg-dark py-4">
+   <small> <p>Distributed By <a href="https://themewagon.com/"><script>document.write(new Date().getFullYear())</script>Themewagon</a></p></small class="text-secondary">
+</div>
+</footer>
+
+
+  <!-- To Top -->
+  <div class="scroll-top-to">
+    <i class="ti-angle-up"></i>
+  </div>
+  
+  <!-- JAVASCRIPTS -->
+  <script src="static/plugins/jquery/jquery.min.js"></script>
+  <script src="static/plugins/bootstrap/bootstrap.min.js"></script>
+  <cript src="static/plugins/slick/slick.min.js"></cript>
+  <script src="static/plugins/fancybox/jquery.fancybox.min.js"></script>
+  <script src="static/plugins/syotimer/jquery.syotimer.min.js"></script>
+  <script src="static/plugins/aos/aos.js"></script>
+  <!-- google mstatic/ap -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgeuuDfRlweIs7D6uo4wdIHVvJ0LonQ6g"></script>
+  <script src="static/plugins/google-map/gmap.js"></script>
+  
+  <script src="static/js/script.js"></script>
+</body>
+
+</html>
